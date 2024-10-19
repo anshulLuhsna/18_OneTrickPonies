@@ -182,42 +182,42 @@ const LoanApplicationForm = () => {
     const HasDependents = "No";
     const HasCoSigner = "No";
   
-    let loanType = 1;
+ 
     // let loanType = "Home";
     // Make an API call to post the loan application data
+    console.log(age, income, loanAmount, creditScore, monthsEmployed, creditLines, interestRate, preferredTenure, DTIRatio, Education, EmploymentType, MaritalStatus, HasMortgage, HasDependents, loanType, HasCoSigner)
     fetch('http://localhost:5000/predict', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+      'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        Age: age,
-        Income: income,
-        LoanAmount: loanAmount,
-        CreditScore:creditScore,
-        MonthsEmployed: monthsEmployed,
-        NumCreditLines:creditLines,
-        InterestRate: interestRate,
-        DTIRatio,
-        Education,
-        EmploymentType,
-        MaritalStatus,
-        HasMortgage,
-        HasDependents,
-        LoanPurpose: loanType,
-        HasCoSigner
-
+      Age: 25,
+      Income: Number(fixedMonthlyIncome) ,
+      LoanAmount: Number(loanAmount),
+      CreditScore: creditScore,
+      MonthsEmployed: monthsEmployed,
+      NumCreditLines: creditLines,
+      InterestRate: interestRate,
+      LoanTerm: Number(preferredTenure),
+      DTIRatio,
+      Education,
+      EmploymentType,
+      MaritalStatus,
+      HasMortgage,
+      HasDependents,
+      LoanPurpose: loanType,
+      HasCoSigner
       }),
     })
       .then(response => response.json())
       .then(data => {
-        console.log('Success:', data);
-        setIsDefaulter(data.prediction)
-        setShowVisualization(true)
-
+      console.log('Success:', data);
+      setIsDefaulter(data.prediction)
+      setShowVisualization(true)
       })
       .catch((error) => {
-        console.error('Error:', error);
+      console.error('Error:', error);
       });
 
     return {
